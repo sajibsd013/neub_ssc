@@ -1,0 +1,26 @@
+{% extends '../base.html' %}
+{% block title %}
+    User Login 
+{% endblock title %}
+
+{% block body %}
+    <div class='container'>
+        <div class="row _section_top">
+            <div class="col-lg-4 col-md-6 m-auto mt-5 ">
+                <h4 class='text-center'>Login NEUB SSC</h4>
+                <form class="py-2" method="post" action="user/userlogin">
+                    {% csrf_token %}
+                    {{login_form}}
+                    <div class="text-center">
+                        <button class="btn btn-outline-primary px-5" name="" type="submit">
+                            <i class="fa fa-sign-in text-dark me-2"></i>
+                            Log in
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

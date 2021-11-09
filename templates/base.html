@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap-5/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <title>NEUBSSC || {% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    <header class='fixed-top '>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+                    <a class="navbar-brand" href="/">
+                        <img class="_logo_img " src="{% static 'img/logo.png' %} " alt="">
+                    </a>
+                    <div class="navbar-nav m-auto ">
+                        <a class='nav-link _nav_link' href='/'> Home </a>
+                        <a class='nav-link _nav_link' href='/about/'> About </a>
+                        <a class='nav-link _nav_link' href='/#Services/'> Services </a>
+                        <a class='nav-link _nav_link' href='/team/'> Team </a>
+                        <a class='nav-link _nav_link' href='/records/'> Records </a>
+                        <a class='nav-link _nav_link' href='/#footer'> Contact </a>
+                    </div>
+                </div>
+                <div class="_login_area">
+                    {% if request.user.is_anonymous %}
+                    <button type="button" class="btn btn-outline-primary px-md-4" data-bs-toggle="modal"
+                        data-bs-target="#login_modal">
+                        Sign in
+                    </button>
+                    <button type="button" class="btn btn-outline-primary px-md-4" data-bs-toggle="modal"
+                        data-bs-target="#sign_up_modal">
+                        Sign up
+                    </button>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                    <div class="nav-item dropdown">
+                        <a class="nav-link btn btn-primary text-light _user_icon_top dropdown-toggle align-middle"
+                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user-circle text-light pe-1"></i> 
+                            <small> Welcome
+                                {% if request.user.first_name %}
+                                    {{request.user.first_name}}
+                                {% else %}
+                                    {{request.user}}
+                                {% endif %}
+                                
+                            </small>
+                        </a>
+                        <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'home:profile' %}">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <a class="btn btn-outline-primary dropdown-item" href="{% url 'accounts:userlogout' %}">Logout
+                                <i class="fa fa-sign-out text-dark ms-1"></i>
+                            </a>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show text-center" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}    
+        {% endif %}
+
+        <div class="modal fade" id="login_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="text-center">Login NEUB SSC</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-9 m-auto">
+                                <form class="py-2" method="post" action="user/userlogin/">
+                                    {% csrf_token %}
+                                    {{login_form}}
+                                    <div class="text-center">
+                                        <button class="btn btn-outline-primary px-5" name="" type="submit">
+                                            <i class="fa fa-sign-in me-2"></i>
+                                            Log in
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="sign_up_modal" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel"
+            aria-hidden="true">
+            <div class="modal-dialog _modal_mx_width">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title" id="exampleModalFullscreenLabel">
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% include 'forms/sign_up.html' %}
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="donor_list_modal" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel"
+            aria-hidden="true">
+            <div class="modal-dialog _modal_mx_width">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title" id="exampleModalFullscreenLabel">
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% include 'blood/donors.html' %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    {% block body %}{% endblock body %}
+
+    {% include 'footer/footer.html' %}
+
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap-5/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+</body>
+
+</html>

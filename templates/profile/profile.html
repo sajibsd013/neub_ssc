@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock title %}
+
+{% block body %}
+
+<section class='py-5'>
+{% for data in datalist %}
+    <div class="py-5 container">
+        <h1 class=" text-center pt-5" id=""><i class="fa fa-user-circle text-success h1 display-1"></i></h1>
+        <h4 class="text-center pb-2">Welcome <span class="text-primary h3">{{data.name}}</span></h4>
+
+        <div class="">
+            <form name="blood_regi_form" class="row g-3 _blood_regi_modal" method='post' action="/profile" >
+                {% csrf_token %}
+               
+                 <div class="col-sm-12 d-flex justify-content-end">
+                     <a href='{% url 'home:edit_profile' profile_id=data.id %}' class="btn btn-outline-primary text-right btn-sm" >
+                        Edit
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </div>
+
+                <div class="col-sm-6 ">
+                    <label for="first_name" class="form-label">Name</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light" name="first_name" id="first_name" value={{data.name}} disabled required>
+                      </div>
+                </div>
+   
+                <div class="col-sm-6 ">
+                    <label for="first_name" class="form-label">Email</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light" name="email" id="email" value={{data.email}} disabled required>
+                      </div>
+                </div>
+
+   
+                <div class="col-sm-4 ">
+                    <label for="first_name" class="form-label">Phone Number</label>
+                    <div class="input-group mb-2">
+                        <input type="number" class="form-control border-0 text-muted  bg-light" name="phone" id="phone" value={{data.phone}} disabled required>
+                      </div>
+                </div>
+
+   
+                <div class="col-sm-4 ">
+                    <label for="first_name" class="form-label">Blood Type</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light" name="blood_type" id="blood_type" value={{data.blood_type}} disabled required>
+                      </div>
+                </div>
+
+   
+
+                <div class="col-sm-4 ">
+                    <label for="first_name" class="form-label">Gender</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light" name="gender" id="gender" value={{data.gender}} disabled required>
+                      </div>
+                </div>
+
+    
+                <div class="col-sm-4 ">
+                    <label for="first_name" class="form-label">City</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light " name="city" id="city" value={{data.district}} disabled required>
+                      </div>
+                </div>
+
+
+                <div class="col-sm-4 ">
+                    <label for="first_name" class="form-label">Date of Birth</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light" name="date_of_birth" id="date_of_birth" value={{data.date_of_birth|date:"SHORT_DATE_FORMAT"}}  disabled required>
+                      </div>
+                </div>
+
+
+                <div class="col-sm-4 ">
+                    <label for="first_name" class="form-label">Last Blood Donate</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control  border-0 text-muted  bg-light" name="last_donate" id="last_donate" value= {% if data.last_donate %}{{data.last_donate|date:"SHORT_DATE_FORMAT"}}{% else %}"N/A"{% endif %}  disabled required>
+                      </div>
+                </div>
+
+                <div class="col-sm-12 ">
+                    <label for="first_name" class="form-label">Address</label>
+                    <div class="input-group mb-2">
+                        <textarea name="" id="address" cols="30" rows="3" class="form-control  border-0 text-muted  bg-light" disabled required>{{data.address}}</textarea>
+                      </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    </div>
+{% endfor %}
+
+</section>
+{% endblock body %};

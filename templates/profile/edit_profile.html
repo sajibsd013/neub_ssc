@@ -1,0 +1,70 @@
+{% extends '../base.html' %}
+{% block title %}
+Edit pofile
+{% endblock title %}
+
+{% block body %}
+<div class='container _section_top'>
+    <form class="py-2 row g-3 _blood_regi_modal justify-content-center" method="post" action="">
+        {% csrf_token %}
+
+        <div class="col-sm-12">
+            <label for="first_name" class="form-label">Name</label>
+            {{blood_donor_form.name}}
+        </div>
+
+        <div class="col-sm-12 d-none">
+            <label for="first_name" class="form-label">Name</label>
+            {{blood_donor_form.email}}
+        </div>
+
+        <div class="col-sm-4">
+            <label for="phone" class="form-label">Phone Number</label>
+            {{blood_donor_form.phone}}
+        </div>
+
+
+        <div class="col-sm-4">
+            <label for="city" class="form-label">Gender</label>
+            {{blood_donor_form.gender}}
+        </div>
+
+        <div class="col-sm-4 ">
+            <label for="date_of_birth" class="form-label">Date of Birth</label>
+            {{blood_donor_form.date_of_birth}}
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <label for="city" class="form-label">City</label>
+            {{blood_donor_form.district}}
+        </div>
+        <div class="col-sm-4">
+            <label for="type" class="form-label">Blood Type</label>
+            {{blood_donor_form.blood_type}}
+        </div>
+
+
+        <div class="col-sm-4 ">
+            <label for="date_of_birth" class="form-label">Last Blood Donate</label>
+            {{blood_donor_form.last_donate}}
+        </div>
+
+
+        <div class="col-sm-12">
+            <label for="address" class="form-label">Address</label>
+            {{blood_donor_form.address}}
+        </div>
+
+
+        <div class="text-center">
+            <button class="btn btn-outline-primary px-5" name="" type="submit">
+                <i class="fa fa-sign-in  me-2"></i>
+                Save Update
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

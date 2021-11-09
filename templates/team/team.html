@@ -1,0 +1,138 @@
+{% extends '../base.html' %}
+
+{% load static %}
+{% block title %}
+Team
+{% endblock title %}
+
+{% block body %}
+
+<section class="container py-5 _login_sec ">
+{% for c in current_committee %} 
+    <div class="text-center">
+        <h6 class='_section_title'>our TEAM</h6>
+        <h2 class='font-weight-bold py-2'>Our Hardworking <span class='text-success'>Team</span> </h2>
+        <h6 class='pb-3'> Executive Committee ({{c.session}})</h6>
+    </div>
+    <div class="row g-4 py-5 justify-content-center _modal_mx_width mx-auto">
+        {% for member in members %}
+            {% if member.session.session == c.session %}
+                <div class="col-md-4 col-sm-6 _cursor_pointer">
+                    <div class='card shadow rounded'>
+                        <img src="{{member.image.url}}" class="card-img-top w-50 _img_border rounded-circle mt-3 mx-auto " alt="...">
+                        <div class="card-body text-center">
+                            <h6 class="card-title my-1">{{member.name}}</h6>
+                            <small class="card-text d-block text-muted">{{member.position}}</small>
+                            <small class="card-text d-block text-muted">({{member.session}})</small>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="row g-5 py-5 justify-content-center">
+        {% for team in sorted_committee %}
+            {% if team.active %}{% else %}
+                <div class="col-lg-4 col-md-6">
+                    <div class='card'>
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Executive Committee ({{team.session}})</h5>
+                            <small class="card-text text-muted d-block pb-3">You can see committee members by click below 'View Comittee' button</small>
+                                <button type="button" class="btn btn-primary px-md-4 d-block" data-bs-toggle="modal" data-bs-target="#view_team{{team.id}}">
+                                View Committee
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="view_team{{team.id}}" tabindex="" aria-labelledby="" aria-hidden="true">
+                        <div class="modal-dialog _modal_mx_width ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h4 text-success" id="exampleModalFullscreenLabel">Executive Committee ({{team.session}})</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div class="modal-body">
+                                <div class="row g-4 py-5 justify-content-center">
+                                    {% for member in members %}
+                                        {% if member.session.session == team.session %}
+                                            <div class=" col-md-4 col-sm-6 _cursor_pointer">
+                                                <div class='card shadow rounded'>
+                                                    <img src="{{member.image.url}}" class="card-img-top w-50 _img_border rounded-circle mt-3 mx-auto " alt="...">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title my-1">{{member.name}}</h6>
+                                                        <small class="card-text d-block text-muted">{{member.position}}</small>
+                                                        <small class="card-text d-block text-muted">({{member.session}})</small>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if request.user.username == 'admin' %}
+        {% comment %} <div class="row g-5 mt-5 py-5">
+            <div class="col-md-6 m-auto">
+            
+            </div>
+            <div class="col-md-6 m-auto">
+                <h4 class="text-center">Member Add</h4>
+                <form class="py-2" method="post" action="/team/add_member" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="position" class="form-label">Position</label>
+                        <input type="text" class="form-control" name="position">
+                    </div>
+                    
+
+                    <div class="mb-3">
+                        <label for="type" class="form-label">Session</label>
+                        <select class="form-select" name="session" required>
+                            <option selected disabled value="">Select </option>
+                                {% for team in Previous_committee %}
+
+                                    <option>{{team.session}}</option>
+        
+                                {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <div class=" mb-3">
+                        <label for="image" class="form-label">Upload Image</label>
+                        <input type="file" name="image" class="form-control" aria-label="file input example">
+                    </div>
+                    
+            
+                    <div class="col-12 text-center mt-3">
+                        <button class="btn btn-outline-primary" name="" type="submit">Add Member</button>
+                    </div>
+                </form>
+            
+            </div>
+        </div> {% endcomment %}
+    {% endif %}
+    
+
+{% endfor %}
+</section>
+
+{% endblock body %}

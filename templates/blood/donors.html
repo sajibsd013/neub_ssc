@@ -1,0 +1,70 @@
+<div class="">
+    <h4 class=" text-center" id="">Search Blood Donors</h4>
+    <h6 class="text-muted text-center _modal_subheading pb-2">If you need blood donors, search now...</h6>
+
+
+    <form class="row g-3 _blood_regi_modal " method='post' action="/">
+        {% csrf_token %}
+        <div class="col-sm-6">
+            <label for="blood_group" class="form-label">Blood Type</label>
+            {{search_donor.blood_type}}
+
+        </div>
+
+        <div class="col-sm-6">
+            <label for="city" class="form-label">District</label>
+            {{search_donor.district}}
+        </div>
+
+        <div class="col-12 text-center">
+            <button class="btn btn-outline-primary px-3" name="donor_search" type="submit">Get Donors</button>
+        </div>
+    </form>
+
+    <div class=" py-5">
+
+        {% if list %}
+
+        <div class="_donor_list_row">
+
+            {% for donor in list %}
+
+
+            <a class='_donor_list_col text-decoration-none text-dark d-block' href="{% url 'blood_app:donor_profile' donor_id=donor.id %}" >
+                <div class='_card_donoers_info shadow-lg text-center'>
+                    <div class="row ">
+                        <div class="col-3 _donor_icon_sec d-flex justify-content-between align-items-center">
+                            <i class="fa fa-user-circle text-primary fa-3x"></i>
+                            
+                        </div>
+                        <div class="col-9  d-flex justify-content-between ">
+                            <div class="_donor_detail">
+                                <p class="_donor_name">{{donor.name}}
+                                    {% comment %} <i class="fa fa-check-circle text-success "></i> {% endcomment %}
+                                </p>
+                                <p class="_donor_city ">
+                                    <i class="fa fa-map-marker text-primary "></i> {{donor.district}}
+                                    {% if donor.gender == "Male" %}
+                                    <i class="fa fa-phone ps-2 text-primary"></i> {{donor.phone}}
+                                    {% endif %}
+                                </p>
+                                <p class="_donor_city mark text-danger">
+                                        Last Donate: {% if donor.last_donate %} {{donor.last_donate}} {% else %} N/A {% endif %}
+                                </p>
+                                
+
+                            </div>
+                            <p class="_blood_type">{{donor.blood_type}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            {% endfor %}
+
+        </div>
+        {% endif %}
+
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="">
+    <h4 class=" text-center" id="">Blood Donation Form</h4>
+    <h6 class="text-muted text-center _modal_subheading pb-2">Register to be a blood donor , donate blood & save life...
+    </h6>
+    <form  class="row g-3 _blood_regi_modal justify-content-center" method='post'  action="{% url 'accounts:user_regi' %}">
+        {% csrf_token %}
+
+        <div class="col-sm-6">
+            <label for="first_name" class="form-label">Name</label>
+            {{blood_donor_form.name}}
+        </div>
+
+
+        <div class=" col-sm-6">
+            <label for="email" class="form-label">Email</label>
+            {{blood_donor_form.email}}
+        </div>
+
+        <div class="col-sm-4">
+            <label for="city" class="form-label">Gender</label>
+            {{blood_donor_form.gender}}
+        </div>
+
+        <div class="col-sm-4 ">
+            <label for="date_of_birth" class="form-label">Date of Birth</label>
+            {{blood_donor_form.date_of_birth}}
+        </div>
+        <div class="col-sm-4">
+            <label for="phone" class="form-label">Phone Number</label>
+            {{blood_donor_form.phone}}
+        </div>
+   
+        <div class="col-sm-4">
+            <label for="last_name" class="form-label">Username</label>
+            {{signup_form.username}}
+        </div>
+        <div class="col-sm-4">
+            <label for="phone" class="form-label"> Password</label>
+            {{signup_form.password1}}
+        </div>
+        <div class="col-sm-4">
+            <label for="phone" class="form-label ">Confirm Password</label>
+            {{signup_form.password2}}
+        </div>
+        <div class="col-sm-4">
+            <label for="city" class="form-label">City</label>
+            {{blood_donor_form.district}}
+        </div>
+        <div class="col-sm-4">
+            <label for="type" class="form-label">Blood Type</label>
+            {{blood_donor_form.blood_type}}
+        </div>
+       
+
+
+
+        <div class="col-sm-4 ">
+            <label for="date_of_birth" class="form-label">Last Blood Donate</label>
+            {{blood_donor_form.last_donate}}
+        </div>
+
+
+        <div class="col-sm-12">
+            <label for="address" class="form-label">Address</label>
+            {{blood_donor_form.address}}
+        </div>
+
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" required>
+
+                <label class="form-check-label" for="invalidCheck3">
+                    Agree to terms and conditions
+                </label>
+            </div>
+        </div>
+
+
+        <div class="col-12 text-center">
+            <button class="btn btn-outline-primary " name="donor_regi" type="submit">
+                Register Now
+            </button>
+            <button class="btn btn-outline-danger px-3" name="donor_regi" type="reset">
+                Clear All
+            </button>
+        </div>
+
+    </form>
+
+
+</div>
