@@ -8,7 +8,7 @@
         <div class="row _section_top">
             <div class="col-lg-4 col-md-6 m-auto mt-5 ">
                 <h4 class='text-center'>Login NEUB SSC</h4>
-                <form class="py-2" method="post" action="user/userlogin">
+                <form class="py-2" method="post" action="{% url 'accounts:userlogin' %}">
                     {% csrf_token %}
                     {{login_form}}
                     <div class="text-center">

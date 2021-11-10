@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-0^ec2!q3-mb(yc8j%ktmki@6tl%x7m@%cf+4d0&rvbz4!xwy+!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 ALLOWED_HOSTS = ['neubssc.herokuapp.com']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -137,6 +138,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn', 'static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 # Default primary key field type
