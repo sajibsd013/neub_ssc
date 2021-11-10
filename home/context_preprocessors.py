@@ -1,11 +1,10 @@
-from accounts.forms import Sign_in, Sing_up, user_rei_form
+from accounts.forms import Sign_in, user_rei_form
 from team.models import Team, Committee_list
 from blood_app.models import Blood_donor
 from blood_app.forms import Search_donor
 
 def add_var_to_context(request):
     sign_in = Sign_in()
-    sing_up = Sing_up()
     search_donor = Search_donor()
     blood_donor_form = user_rei_form()
     current_committee = Committee_list.objects.all().filter(active=True)
@@ -15,7 +14,6 @@ def add_var_to_context(request):
 
     return{
         "login_form": sign_in,
-        "signup_form": sing_up,
         "members" : team,
         "blood_donor_form": blood_donor_form,
         "current_committee": current_committee,

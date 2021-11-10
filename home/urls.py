@@ -12,9 +12,3 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('profile/<int:profile_id>/', views.edit_profile, name="edit_profile"),
 ]
-
-
-
-# if settings.DEBUG:
-#   urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-#   urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
